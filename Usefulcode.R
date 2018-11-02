@@ -11,3 +11,8 @@ tibl %>%
 require(tidyverse)
 tibl %>%
   dplyr::filter_at(vars(-COLUMN1, -COLUMN2), any_vars(!is.na(.)))
+
+#Add randomisation key to cases
+tibl %>%
+  left_join(TIBL_WITH_RANDOMISATION_KEYS) %>%
+  dplyr::select(CASE_ID_COLUMN, RANDOMISATION_KEY_COLUMN, everything())
