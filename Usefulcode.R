@@ -10,9 +10,9 @@ tibl %>%
 #Remove all rows if NA excluding certain columns
 require(tidyverse)
 tibl %>%
-  dplyr::filter_at(vars(-COLUMN1, -COLUMN2), any_vars(!is.na(.)))
+  dplyr::filter_at(vars(-VARIABLE1, -VARIABLE2), any_vars(!is.na(.)))
 
 #Add randomisation key to cases
 tibl %>%
   left_join(TIBL_WITH_RANDOMISATION_KEYS) %>%
-  dplyr::select(CASE_ID_COLUMN, RANDOMISATION_KEY_COLUMN, everything())
+  dplyr::select(CASE_ID_VARIABLE, RANDOMISATION_KEY_VARIABLE, everything())
