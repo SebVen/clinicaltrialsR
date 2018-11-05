@@ -16,3 +16,27 @@ tibl %>%
 tibl %>%
   left_join(TIBL_WITH_RANDOMISATION_KEYS) %>%
   dplyr::select(CASE_ID_VARIABLE, RANDOMISATION_KEY_VARIABLE, everything())
+
+#YAML header for R Markdown. Includes current date
+---
+  title: "NAPRESSIM Statistics"
+author: "Sebastian Vencken"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+  df_print: paged
+---
+  
+  <style type="text/css">
+  .main-container {
+    max-width: INSERTpx;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+  
+#Remove rows with NA is specific variable
+tibl %>% 
+  dplyr::filter(!is.na(VARIABLE))
+
+#
