@@ -42,3 +42,5 @@ TIBL %>%
 #Report on NA and factor levels
 tibble(Variable = names(TIBL), Missing = sapply(TIBL, function(x) sum(is.na(x)))) %>%
   mutate(Levels = sapply(sapply(TIBL, levels), paste ,collapse = ", "))
+# Seb check out library(tableone) for this - its very handy
+# Darren and co use straagazer to good effect also
