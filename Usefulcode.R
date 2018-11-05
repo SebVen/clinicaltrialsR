@@ -1,6 +1,6 @@
 #These are some short functions that are useful for clinical trial analysis and producing clinical study reports
 
-#Rename variables to tidy names
+#Rename variable names to tidy names
 require(tidyverse)
 tibl %>%
   rename_all(funs(make.names(.))) %>%
