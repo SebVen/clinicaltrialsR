@@ -1,6 +1,6 @@
 #These are some short functions that are useful for clinical trial analysis and producing clinical study reports
 
-#Rename columns to tidy names
+#Rename variables to tidy names
 require(tidyverse)
 tibl %>%
   rename_all(funs(make.names(.))) %>%
@@ -14,7 +14,7 @@ tibl %>%
 
 #Add randomisation key to cases
 tibl %>%
-  left_join(TIBL_WITH_RANDOMISATION_KEYS) %>%
+  left_join(TIBLWITH_RANDOMISATION_KEYS) %>%
   dplyr::select(CASE_ID_VARIABLE, RANDOMISATION_KEY_VARIABLE, everything())
 
 #YAML header for R Markdown. Includes current date
