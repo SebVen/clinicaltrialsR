@@ -1,5 +1,7 @@
 #These are some short functions that are useful for clinical trial analysis and producing clinical study reports
 
+#Seb - needs more explanatory info - which trials? Where does data come from ?
+
 #Rename columns to tidy names
 require(tidyverse)
 tibl %>%
