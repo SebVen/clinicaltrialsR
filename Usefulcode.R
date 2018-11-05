@@ -39,4 +39,6 @@ output:
 TIBL %>% 
   dplyr::filter(!is.na(VARIABLE))
 
-#
+#Report on NA and factor levels
+tibble(Variable = names(TIBL), Missing = sapply(TIBL, function(x) sum(is.na(x)))) %>%
+  mutate(Levels = sapply(sapply(TIBL, levels), paste ,collapse = ", "))
