@@ -19,8 +19,8 @@ TIBL %>%
 
 #YAML header for R Markdown. Includes current date
 ---
-  title: "NAPRESSIM Statistics"
-author: "Sebastian Vencken"
+  title: "TITLE"
+author: "NAME"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
