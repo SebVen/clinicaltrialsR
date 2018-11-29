@@ -36,17 +36,36 @@ output:
 </style>
   
 #Remove rows with NA is specific variable
+require(tidyverse)
 TIBL %>% 
   dplyr::filter(!is.na(VARIABLE))
 
 #Report on NA and factor levels
+require(tidyverse)
 tibble(Variable = names(TIBL), Missing = sapply(TIBL, function(x) sum(is.na(x)))) %>%
   mutate(Levels = sapply(sapply(TIBL, levels), paste ,collapse = ", "))
 
 #Remove and sum duplicate rows
+require(tidyverse)
 TIBL %>%
   group_by(VARS_WITH_DUPLICATES) %>%
   summarise(NEW_VAR_NAME = sum(VAR_TO_BE_SUMMED))
 
 #Split data into two ggplots and rename grouping variable
+require(tidyverse)
+GGPLOT +
 facet_grid(.~group, labeller = function(variable, value){return(list("OLD_NAME1" = "NEW_NAME1", "OLD_NAME2" = "NEW_NAME2")[value])})
+
+#Import CSV data and define variable types
+require(readxl)
+read_csv("FILE.csv", col_names = TRUE, col_types = cols(.default = col_double(),
+                                                          VAR1 = col_character(),
+                                                          VAR2 = col_integer(),
+                                                          VAR3 = col_factor(levels = NULL, ordered = FALSE, include_na = FALSE),
+                                                          VAR4 = col_date(format = "%Y-%m-%d"),
+                                                          VAR5 = col_time(format = "%H:%M:%S"),
+                                                          VAR6 = col_datetime(format = "%Y-%m-%d %H:%M:%S"),
+                                                          VAR7 = col_logical(),
+                                                          VAR8 = col_guess(),
+                                                          VAR9 = col_skip()
+                                                          ))
