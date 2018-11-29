@@ -42,5 +42,11 @@ TIBL %>%
 #Report on NA and factor levels
 tibble(Variable = names(TIBL), Missing = sapply(TIBL, function(x) sum(is.na(x)))) %>%
   mutate(Levels = sapply(sapply(TIBL, levels), paste ,collapse = ", "))
-# Seb check out library(tableone) for this - its very handy
-# Darren and co use straagazer to good effect also
+
+#Remove and sum duplicate rows
+TIBL %>%
+  group_by(VARS_WITH_DUPLICATES) %>%
+  summarise(NEW_VAR_NAME = sum(VAR_TO_BE_SUMMED))
+
+#Split data into two ggplots and rename grouping variable
+facet_grid(.~group, labeller = function(variable, value){return(list("OLD_NAME1" = "NEW_NAME1", "OLD_NAME2" = "NEW_NAME2")[value])})
