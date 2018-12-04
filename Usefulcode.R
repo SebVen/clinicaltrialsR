@@ -5,6 +5,7 @@ require(tidyverse)
 TIBL %>%
   rename_all(funs(make.names(.))) %>%
   rename_all(funs(str_replace(.,"\\.{2,}","\\."))) %>%
+  rename_all(funs(str_replace(.,"\\.$",""))) %>%
   rename_all(funs(tolower(.)))
 
 #Remove all rows if NA excluding certain columns
@@ -20,14 +21,16 @@ TIBL %>%
 #YAML header for R Markdown. Includes current date
 ---
   title: "TITLE"
-author: "NAME"
+author: "AUTHOR"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  html_document:
+  word_document:
+  reference_docx: reference.docx
+html_document:
   df_print: paged
 ---
   
-  <style type="text/css">
+<style type="text/css">
   .main-container {
     max-width: INSERTpx;
     margin-left: auto;
@@ -69,3 +72,7 @@ read_csv("FILE.csv", col_names = TRUE, col_types = cols(.default = col_double(),
                                                           VAR8 = col_guess(),
                                                           VAR9 = col_skip()
                                                           ))
+
+#Replace all values (useful for removing 'na' characters)
+TIBL %>%
+  mutate_all(funs(replace(., . == OLD_VALUE, NEW_VALUE)))
