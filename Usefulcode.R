@@ -4,7 +4,7 @@
 require(tidyverse)
 TIBL %>%
   rename_all(funs(make.names(.))) %>%
-  rename_all(funs(str_replace(.,"\\.{2,}","\\."))) %>%
+  rename_all(funs(str_replace_all(.,"\\.{2,}","\\."))) %>%
   rename_all(funs(str_replace(.,"\\.$",""))) %>%
   rename_all(funs(tolower(.)))
 
