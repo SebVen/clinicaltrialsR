@@ -76,3 +76,7 @@ read_csv("FILE.csv", col_names = TRUE, col_types = cols(.default = col_double(),
 #Replace all values (useful for removing 'na' characters)
 TIBL %>%
   mutate_all(funs(replace(., . == OLD_VALUE, NEW_VALUE)))
+
+#Remove empty columns
+TIBL %>%
+  select_if(function(x) !(all(is.na(x))))
