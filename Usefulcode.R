@@ -80,3 +80,9 @@ TIBL %>%
 #Remove empty columns
 TIBL %>%
   select_if(function(x) !(all(is.na(x))))
+
+#Select columns using vector of names
+variable <- c("COL_NAME1", "COLNAME_2")
+
+TIBL %>%
+  select(variable)
