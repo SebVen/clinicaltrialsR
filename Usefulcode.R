@@ -86,3 +86,6 @@ variable <- c("COL_NAME1", "COLNAME_2")
 
 TIBL %>%
   select(variable)
+
+#Get first and last string delineated by "."
+str_split(STRING, "(?=[.]).*(?<=[.])", simplify = TRUE)
