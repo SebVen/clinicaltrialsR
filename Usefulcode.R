@@ -89,3 +89,10 @@ TIBL %>%
 
 #Get first and last string delineated by "."
 str_split(STRING, "(?=[.]).*(?<=[.])", simplify = TRUE)
+
+#Assign a variable name from a string through dplyr
+varname <- STRING
+
+TIBL %>%
+  mutate(!!varname := REMANING) #this is the equivalent of TIBL["varname"]
+
