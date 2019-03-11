@@ -94,5 +94,5 @@ str_split(STRING, "(?=[.]).*(?<=[.])", simplify = TRUE)
 varname <- STRING
 
 TIBL %>%
-  mutate(!!varname := REMANING) #this is the equivalent of TIBL["varname"]
+  mutate(!!varname := REMAINING) #this is the equivalent of TIBL["varname"] <- REMAINING
 
