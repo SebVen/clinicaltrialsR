@@ -8,6 +8,11 @@ TIBL %>%
   rename_all(funs(str_replace(.,"\\.$",""))) %>%
   rename_all(funs(tolower(.)))
 
+#Remove rows with NA is specific variable
+require(tidyverse)
+TIBL %>% 
+  dplyr::filter(!is.na(VARIABLE))
+
 #Remove all rows if NA excluding certain columns
 require(tidyverse)
 TIBL %>%
@@ -38,11 +43,6 @@ html_document:
   }
 </style>
   
-#Remove rows with NA is specific variable
-require(tidyverse)
-TIBL %>% 
-  dplyr::filter(!is.na(VARIABLE))
-
 #Report on NA and factor levels
 require(tidyverse)
 tibble(Variable = names(TIBL), Missing = sapply(TIBL, function(x) sum(is.na(x)))) %>%
@@ -82,7 +82,7 @@ TIBL %>%
   select_if(function(x) !(all(is.na(x))))
 
 #Select columns using vector of names
-variable <- c("COL_NAME1", "COLNAME_2")
+VARIABLE <- c("COL_NAME1", "COLNAME_2")
 
 TIBL %>%
   select(variable)
@@ -96,3 +96,11 @@ varname <- STRING
 TIBL %>%
   mutate(!!varname := REMAINING) #this is the equivalent of TIBL["varname"] <- REMAINING
 
+#Specify decimals
+format(round(VARIABLE, digits = DECIMALS), nsmall = DECIMALS)
+
+#Tell knitr to print NA values as blanks
+options(knitr.kable.NA="")
+
+#Tell R to use non-scientific notation for numbers
+options(scipen=999)
