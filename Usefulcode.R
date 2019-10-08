@@ -85,7 +85,7 @@ TIBL %>%
 VARIABLE <- c("COL_NAME1", "COLNAME_2")
 
 TIBL %>%
-  select(variable)
+  select(VARIABLE)
 
 #Get first and last string delineated by "."
 str_split(STRING, "(?=[.]).*(?<=[.])", simplify = TRUE)
@@ -104,3 +104,49 @@ options(knitr.kable.NA="")
 
 #Tell R to use non-scientific notation for numbers
 options(scipen=999)
+
+#Convert tibble column into vector
+TIBL %>%
+  select(VARIABLE) %>%
+  pull()
+
+#Rename multiple variables using regex
+TIBL %>%
+  rename_at(vars(VARIABLES), ~str_replace(., "regex", "Replacement string"))
+
+#Arrange in reverse order
+TIBL %>%
+  arrange(desc(VARIABLE))
+
+#Convert a variable to rownames
+TIBL %>%
+  column_to_rownames(var = "VARIABLE")
+
+#This code allows to convert a set of wide variables with common names to long variables
+TIBL %>%
+  gather(KEY, VALUE) %>%
+  separate(KEY, into = c("VARIBLE1", "VARIABLE2"), "regex") %>%
+  spread(VARIABLE1, value)
+  
+#Using the "matches()" function, multiple variables with different names can be selected. E.g.
+TIBLE %>%
+  mutate_at(vars(matches("VARIABLE1|VARIABLE2|VARIABLE3")), funs(FUNCTION))
+
+#The "pmap()" function works similarly as "map2()" but can be used over >2 input variables.
+#The multiple input variables must be in a list. E.g.
+pmap(list(VARIABLE1, VARIABLE2, VARIABLE3), FUNCTION(VARIABLE1, VARIABLE2, VARIABLE3))
+
+#A simple function to conditionally edit character variables if certain strings match. E.g., only make strings with a lower-case first character upper-case
+mutate(VARIABLE = ifelse(str_detect(VARIABLE, "^[[:lower:]]"), str_to_sentence(VARIABLE), VARIABLE))
+
+#Count without duplicates
+TIBL %>%
+  summarise(
+    n.distinct = n_distinct(VARIABLE)
+  )
+
+#Count distinct values within a subset. This is very useful if grouping the variable is not preferred.
+TIBL %>%
+  summarise(
+    n.distinct = n_distinct(VARIABLE[VARIABLE2 == "CONDITION"])
+  )
